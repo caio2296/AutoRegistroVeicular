@@ -1,0 +1,111 @@
+/* Estilos gerais */
+.navbar-site {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: #4A90E2;
+    color: white;
+    position: fixed; /* Para posicionamento adequado */
+    width:-webkit-fill-available;
+    z-index: 1;
+  }
+  
+
+  .sandwich-menu {
+    display: none;
+   
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .grupo-usuario-sair {
+    display: flex;
+    align-items: center;
+    
+  }
+  
+  .foto-usuario {
+    width: 40px;
+    height: 40px;
+    background-color: #ddd;
+    border-radius: 50%;
+    margin-left: 10px;
+  }
+  
+  /* Estilos dos botões de navegação */
+  .btn-navBar {
+    cursor: pointer;
+    padding: 10px 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+    
+  }
+  
+  .btn-navBar:hover {
+    background-color: #3d77ba;
+    
+  }
+  
+  .content {
+    margin-top: 60px; /* Ajuste a altura conforme a altura da navbar */
+    padding: 20px;
+  }
+  /* Estilos para dispositivos móveis */
+  @media screen and (max-width: 768px) {
+    .grupo-usuario-sair {
+      flex-direction: column;
+      align-items: flex-start;
+      position: absolute;
+      top: 60px;
+      left: 0;
+      background-color: #333;
+      width: 100%;
+      display: none;
+      max-width: 768px; /* Defina uma largura máxima para evitar exceder a tela */
+    z-index: 1; /* Para garantir que o menu esteja acima dos demais elementos */
+    }
+  
+     .grupo-usuario-sair.active {
+        display: flex; /* Mostrar o menu quando a classe "active" estiver presente */
+        flex-direction: column;
+        align-items: flex-start;
+        position: absolute;
+        top: 52px;
+        left: 0;
+        background-color: #333333ad;
+        width: 100%;
+       
+    }
+  
+    .sandwich-menu {
+      display: block;
+      cursor: pointer;
+      font-size: 24px;
+    }
+  
+    .nav-hidden {
+      display: none;
+    }
+
+    .btn-navBar {
+    cursor: pointer;
+    padding: 10px 15px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    margin-right: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+    width: 100%;
+    text-align: center
+  }
+  
+  .btn-navBar:hover {
+    background-color: #3d77ba;
+    
+  }
+  }

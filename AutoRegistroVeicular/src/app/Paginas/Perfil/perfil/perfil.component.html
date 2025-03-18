@@ -1,0 +1,14 @@
+<div class="container">
+    <h2>Lista dos seus carros - {{ usuario.NomeEmpresa }}</h2>
+  
+    <div class="veiculo-lista">
+      <div 
+        class="veiculo-card" 
+        *ngFor="let veiculo of veiculos" 
+        (click)="abrirDetalhesVeiculo(veiculo.Id)">
+        <h3>Placa: {{ veiculo.Placa }}</h3>
+        <p>Quilometragem Atual: {{ veiculo.KmAtual }}</p>
+        <p>Modelo: {{ veiculo.Modelo }}</p>
+      </div>
+    </div>
+  </div>

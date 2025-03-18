@@ -1,0 +1,50 @@
+ 
+  <section class="hero">
+    <h1>Gerencie seus veículos de forma simples e eficiente</h1>
+    <p>Ideal para autoescolas e mecânicos</p>
+  </section>
+  
+  <section class="carousel">
+    <div class="slides" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+      <img *ngFor="let img of images" [src]="img" alt="Imagem do Carrossel">
+    </div>
+    <button (click)="prevSlide()">◀</button>
+    <button (click)="nextSlide()">▶</button>
+  </section>
+  
+  <section class="info-grid">
+    <h2>O que nos fornecemos:</h2>
+    <div class="info-itens">
+      <div class="info-item">✔ Cadastro de Veículos</div>
+      <div class="info-item">✔ Histórico de Manutenções</div>
+      <div class="info-item">✔ Alertas Automáticos</div>
+    </div>
+  </section>
+
+  <section class="plans-section">
+    <div class="plan">
+      <h3>Plano Básico</h3>
+      <p class="price">R$ 49,90/mês</p>
+      <ul class="features">
+        <li>✔ Cadastro de até 10 veículos</li>
+        <li>✔ Histórico de manutenções</li>
+        <li>✔ Suporte via e-mail</li>
+      </ul>
+      <a href="#" class="cta-button">Assinar</a>
+    </div>
+  
+    <div class="plan">
+      <h3>Plano Profissional</h3>
+      <p class="price">R$ 99,90/mês</p>
+      <ul class="features">
+        <li>✔ Veículos ilimitados</li>
+        <li>✔ Alertas automáticos</li>
+        <li>✔ Suporte prioritário</li>
+      </ul>
+      <a href="#" class="cta-button">Assinar</a>
+    </div>
+  </section>
+  
+  <footer class="footer">
+    <p>&copy; 2025 AutoRegistro. Todos os direitos reservados.</p>
+  </footer>
