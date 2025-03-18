@@ -1,0 +1,26 @@
+<div class="navbar-site">
+    <div class="logo">
+        <!-- Seu logotipo aqui -->
+    </div>
+    <div class="sandwich-menu" (click)="toggleMenu()">
+        &#9776;
+    </div>
+    <div class="grupo-usuario-sair" [class.active]="isMenuOpen">
+        <div class="btn-navBar" (click)="home()">
+            Home
+        </div>
+        <div class="btn-navBar"(click)="login()">
+            Entrar
+        </div>
+        <div class="btn-navBar" (click)="cadastrar()">
+            cadastrar
+        </div>
+        <div class="btn-navBar"(click)="perfil()">
+            Perfil
+        </div>
+        <div class="btn-navBar">
+            Logout
+        </div>
+        
+    </div>
+</div>

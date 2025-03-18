@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="sidebar">
+    <h2>Bem-vindo,</h2>
+    <p>Já tem uma conta ?</p>
+    <p class="info-text">Informe seus dados ao lado e desfrute da melhor ferramenta de gerenciamento de veiculos.</p>
+  </div>
+<div class="form-container">
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
+      <label for="nomeEmpresa">Nome da sua Empresa:</label>
+      <input id="nomeEmpresa" formControlName="nomeEmpresa" type="text" required />
+      <div *ngIf="usuarioForm.get('nomeEmpresa')?.invalid && usuarioForm.get('nomeEmpresa')?.touched">
+        <small>Nome da autoescola é obrigatório.</small>
+      </div>
+  
+      <label for="celular">Celular:</label>
+      <input id="celular" formControlName="celular" type="text" required
+      (input)="formatarCampoCelular($event)" maxlength="15" />
+      <div *ngIf="usuarioForm.get('celular')?.invalid && usuarioForm.get('celular')?.touched">
+        <small>Celular deve estar no formato (XX)XXXXX-XXXX.</small>
+      </div>
+  
+      <label for="email">Email:</label>
+      <input id="email" formControlName="email" type="email" required />
+      <div *ngIf="usuarioForm.get('email')?.invalid && usuarioForm.get('email')?.touched">
+        <small>Por favor, insira um e-mail válido.</small>
+      </div>
+  
+      <label for="senha">Senha:</label>
+      <input id="senha" formControlName="senha" type="password" required />
+      <div *ngIf="usuarioForm.get('senha')?.invalid && usuarioForm.get('senha')?.touched">
+        <small>A senha deve ter pelo menos 6 caracteres.</small>
+      </div>
+  
+      <label for="confirmarSenha">Confirmar Senha:</label>
+      <input id="confirmarSenha" formControlName="confirmarSenha" type="password" required />
+      <div *ngIf="usuarioForm.errors?.['senhasNaoCoincidem'] && usuarioForm.get('confirmarSenha')?.touched">
+        <small>As senhas não coincidem.</small>
+      </div>
+  
+      <label for="foto">Foto (Imagem):</label>
+      <input id="foto" type="file" (change)="onFileChange($event)" required />
+      <div *ngIf="!selectedFile && usuarioForm.get('foto')?.touched">
+        <small>Por favor, selecione uma foto.</small>
+      </div>
+  
+      <button type="submit" [disabled]="usuarioForm.invalid || !selectedFile">Enviar</button>
+    </form>
+  </div>
+</div>

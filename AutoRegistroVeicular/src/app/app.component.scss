@@ -1,0 +1,18 @@
+/* AppComponent */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Ocupa toda a altura da tela */
+  }
+  
+  app-navbar {
+    flex-shrink: 0; /* Impede que a navbar encolha */
+    height: 60px; /* Defina a altura da navbar */
+  }
+  
+  .content {
+    flex-grow: 1; /* O conteúdo ocupa o espaço restante */
+    padding: 20px;
+    background: linear-gradient(to bottom, rgb(0 0 0), rgb(109 109 109 / 50%));
+  }
+
