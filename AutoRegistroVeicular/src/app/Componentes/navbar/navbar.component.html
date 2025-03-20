@@ -9,16 +9,16 @@
         <div class="btn-navBar" (click)="home()">
             Home
         </div>
-        <div class="btn-navBar"(click)="login()">
+        <div class="btn-navBar" *ngIf="!estaAutenticado()"(click)="login()">
             Entrar
         </div>
-        <div class="btn-navBar" (click)="cadastrar()">
+        <div class="btn-navBar" *ngIf="!estaAutenticado()"(click)="cadastrar()">
             cadastrar
         </div>
-        <div class="btn-navBar"(click)="perfil()">
+        <div class="btn-navBar" *ngIf="estaAutenticado()"(click)="perfil()">
             Perfil
         </div>
-        <div class="btn-navBar">
+        <div class="btn-navBar" *ngIf="estaAutenticado()">
             Logout
         </div>
         

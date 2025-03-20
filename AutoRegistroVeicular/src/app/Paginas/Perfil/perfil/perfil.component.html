@@ -12,3 +12,49 @@
       </div>
     </div>
   </div>
+
+  <div class="container mt-4">
+   
+    
+    <form [formGroup]="veiculoForm" (ngSubmit)="onSubmit()">
+      <h2>Cadastro de Veículo</h2>
+      <!-- Modelo -->
+      <div class="mb-3">
+        <label for="modelo" class="form-label">Modelo</label>
+        <input type="text" id="modelo" class="form-control" formControlName="modelo">
+        <div *ngIf="veiculoForm.controls['modelo'].invalid && veiculoForm.controls['modelo'].touched" class="text-danger">
+          O modelo é obrigatório.
+        </div>
+      </div>
+  
+      <!-- Placa -->
+      <div class="mb-3">
+        <label for="placa" class="form-label">Placa</label>
+        <input type="text" id="placa" class="form-control" formControlName="placa">
+        <div *ngIf="veiculoForm.controls['placa'].invalid && veiculoForm.controls['placa'].touched" class="text-danger">
+          A placa deve ter entre 7 e 10 caracteres.
+        </div>
+      </div>
+  
+      <!-- Km Atual -->
+      <div class="mb-3">
+        <label for="kmAtual" class="form-label" >KM Atual</label>
+        <input type="number" id="kmAtual" class="form-control" min="1" formControlName="kmAtual">
+        <div *ngIf="veiculoForm.controls['kmAtual'].invalid && veiculoForm.controls['kmAtual'].touched" class="text-danger">
+          Insira um valor entre 0 e 9999999.
+        </div>
+      </div>
+  
+      <!-- KM Troca de Óleo -->
+      <div class="mb-3">
+        <label for="kmTrocaOleo" class="form-label">KM Troca de Óleo</label>
+        <input type="number" id="kmTrocaOleo" class="form-control" min="1" formControlName="kmTrocaOleo">
+        <div *ngIf="veiculoForm.controls['kmTrocaOleo'].invalid && veiculoForm.controls['kmTrocaOleo'].touched" class="text-danger">
+          Insira um valor entre 0 e 9999999.
+        </div>
+      </div>
+  
+      <!-- Botão de Envio -->
+      <button type="submit" class="btn btn-primary" [disabled]="veiculoForm.invalid">Cadastrar</button>
+    </form>
+  </div>
