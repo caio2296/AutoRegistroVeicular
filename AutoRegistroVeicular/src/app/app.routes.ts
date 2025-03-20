@@ -4,6 +4,7 @@ import { Component, NgModule } from '@angular/core';
 import { CadastroComponent } from './Paginas/Cadastro/cadastro/cadastro.component';
 import { LoginComponent } from './Paginas/Login/login/login.component';
 import { PerfilComponent } from './Paginas/Perfil/perfil/perfil.component';
+import { AuthGuard } from './Services/AuthGard.Service';
 
 export const routes: Routes = [{
     path:"",
@@ -19,7 +20,7 @@ export const routes: Routes = [{
   redirectTo:"Cadastro"
 },
 {
-    path:"Home", component:HomeComponent
+  path:"Home", component:HomeComponent
 },
 {
   path:"Cadastro", component:CadastroComponent
@@ -33,7 +34,7 @@ export const routes: Routes = [{
   redirectTo:"Login"
 },
 {
-  path:"Perfil",component:PerfilComponent
+  path:"Perfil",component:PerfilComponent, canActivate:[AuthGuard]
 },
 {
   path:"perfil",

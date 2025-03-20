@@ -6,15 +6,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class VeiculoService {
+export class ManutencaoService {
     private readonly baseUrl = environment["endPoint"];
 
   constructor(private http: HttpClient) {}
 
-  getVeiculos(): Observable<any[]> {
+  getManutencoes(): Observable<any[]> {
       return this.http.get<any[]>(`${this.baseUrl}/` );
   }
-  getVeiculo(): Observable<any> {
-    return this.http.get<any>(`${this.baseUrl}/` );
-}
 }

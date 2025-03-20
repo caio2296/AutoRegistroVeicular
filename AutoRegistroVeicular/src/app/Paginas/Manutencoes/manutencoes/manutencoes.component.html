@@ -1,1 +1,98 @@
-<p>manutencoes works!</p>
+<div class="container mt-4">
+   
+    
+    <form [formGroup]="manutencaoForm" (ngSubmit)="onSubmit()">
+      <h2>Cadastro de uma nova Manutenção</h2>
+      <!-- Modelo -->
+      <div class="mb-3">
+        <label for="modelo" class="form-label">Modelo</label>
+        <input type="text" id="modelo" class="form-control" formControlName="modelo">
+        <div *ngIf="manutencaoForm.controls['modelo'].invalid && manutencaoForm.controls['modelo'].touched" class="text-danger">
+          O modelo é obrigatório.
+        </div>
+      </div>
+  
+      <!-- Placa -->
+      <div class="mb-3">
+        <label for="placa" class="form-label">Placa</label>
+        <input type="text" id="placa" class="form-control" formControlName="placa">
+        <div *ngIf="manutencaoForm.controls['placa'].invalid && manutencaoForm.controls['placa'].touched" class="text-danger">
+          A placa deve ter entre 7 e 10 caracteres.
+        </div>
+      </div>
+  
+      <!-- Km Atual -->
+      <div class="mb-3">
+        <label for="kmAtual" class="form-label" >KM Atual</label>
+        <input type="number" id="kmAtual" class="form-control" min="1" formControlName="kmAtual">
+        <div *ngIf="manutencaoForm.controls['kmAtual'].invalid && manutencaoForm.controls['kmAtual'].touched" class="text-danger">
+          Insira um valor entre 0 e 9999999.
+        </div>
+      </div>
+  
+      <!-- KM Troca de Óleo -->
+      <div class="mb-3">
+        <label for="kmTrocaOleo" class="form-label">KM Troca de Óleo</label>
+        <input type="number" id="kmTrocaOleo" class="form-control" min="1" formControlName="kmTrocaOleo">
+        <div *ngIf="manutencaoForm.controls['kmTrocaOleo'].invalid && manutencaoForm.controls['kmTrocaOleo'].touched" class="text-danger">
+          Insira um valor entre 0 e 9999999.
+        </div>
+      </div>
+  
+      <!-- Botão de Envio -->
+      <button type="submit" class="btn btn-primary" [disabled]="manutencaoForm.invalid">Cadastrar</button>
+    </form>
+  </div>
+
+
+   <!-- Alteração -->
+  <div class="container mt-4">
+    <form [formGroup]="alteracaoForm" (ngSubmit)="onUpdate()">
+      <h2>Alteração de Manutenção</h2>
+  
+      <!-- ID da Manutenção (Oculto, mas útil para envio) -->
+      <input type="hidden" formControlName="id">
+  
+      <!-- Modelo -->
+      <div class="mb-3">
+        <label for="modelo" class="form-label">Modelo</label>
+        <input type="text" id="modelo" class="form-control" formControlName="modelo">
+        <div *ngIf="alteracaoForm.controls['modelo'].invalid && alteracaoForm.controls['modelo'].touched" class="text-danger">
+          O modelo é obrigatório.
+        </div>
+      </div>
+  
+      <!-- Placa -->
+      <div class="mb-3">
+        <label for="placa" class="form-label">Placa</label>
+        <input type="text" id="placa" class="form-control" formControlName="placa">
+        <div *ngIf="alteracaoForm.controls['placa'].invalid && alteracaoForm.controls['placa'].touched" class="text-danger">
+          A placa deve ter entre 7 e 10 caracteres.
+        </div>
+      </div>
+  
+      <!-- Km Atual -->
+      <div class="mb-3">
+        <label for="kmAtual" class="form-label">KM Atual</label>
+        <input type="number" id="kmAtual" class="form-control" min="1" formControlName="kmAtual">
+        <div *ngIf="alteracaoForm.controls['kmAtual'].invalid && alteracaoForm.controls['kmAtual'].touched" class="text-danger">
+          Insira um valor entre 0 e 9999999.
+        </div>
+      </div>
+  
+      <!-- KM Troca de Óleo -->
+      <div class="mb-3">
+        <label for="kmTrocaOleo" class="form-label">KM Troca de Óleo</label>
+        <input type="number" id="kmTrocaOleo" class="form-control" min="1" formControlName="kmTrocaOleo">
+        <div *ngIf="alteracaoForm.controls['kmTrocaOleo'].invalid && alteracaoForm.controls['kmTrocaOleo'].touched" class="text-danger">
+          Insira um valor entre 0 e 9999999.
+        </div>
+      </div>
+  
+      <!-- Botões de Ação -->
+      <div class="d-flex justify-content-between">
+        <button type="submit" class="btn btn-success" [disabled]="manutencaoForm.invalid">Salvar Alterações</button>
+        <button type="button" class="btn btn-danger" (click)="onDelete()">Excluir</button>
+      </div>
+    </form>
+  </div>

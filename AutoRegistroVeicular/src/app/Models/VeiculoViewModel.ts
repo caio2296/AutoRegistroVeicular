@@ -1,5 +1,5 @@
 export class VeiculoViewModel{
-     Id!:number;
+     Id!:string;
      Modelo!:string;
      Placa!:string;
      int!:number;
