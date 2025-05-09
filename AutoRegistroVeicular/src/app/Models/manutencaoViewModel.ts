@@ -1,8 +1,9 @@
 export class manutencaoViewModel{
-    Id!: string;
-    NomePeca!: string;
-    Preco!: number;
-    DataDaCompra!: Date;
-    DataDaInstalacao!: Date;
-    Fabricante!: string;
+    id!: string;
+    nomePeca!: string;
+    preco!: number;
+    dataDaCompra!: string;
+    dataDaInstalacao!: string;
+    fabricante!: string;
+    idVeiculo!:string;
 }

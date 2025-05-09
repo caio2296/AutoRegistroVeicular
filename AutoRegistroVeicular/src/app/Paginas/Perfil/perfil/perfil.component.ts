@@ -7,6 +7,7 @@ import { UsuarioService } from '../../../Services/Usuario.Service';
 import { UsuarioViewModel } from '../../../Models/UsuarioViewModel';
 import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { Console } from 'console';
 
 @Component({
   selector: 'app-perfil',
@@ -32,19 +33,22 @@ export class PerfilComponent implements OnInit {
   }
 
   carregarUsuario(){
-    this.usuarioService.getUsuario().subscribe(usuario=>{
+    this.usuarioService.obterUsuario().subscribe(usuario=>{
       this.usuario = usuario;
     })
   }
 
   carregarVeiculos() {
-    this.veiculoService.getVeiculos().subscribe(veiculos => {
+    this.veiculoService.BuscarVeiculosCustomizada().subscribe(veiculos => {
       this.veiculos = veiculos;
+      console.log("Veiculos carregados:",this.veiculos);
     });
   }
 
+
   abrirDetalhesVeiculo(id: string) {
-    this.router.navigate(['/veiculo=', id]); // Redireciona para a página de detalhes
+    console.log("Redirecionando para Veiculo:", id);
+    this.router.navigate([`/Veiculo`, id]); // Formato correto para parâmetros dinâmicos
   }
 
   formularioVeiculo(){
@@ -55,10 +59,27 @@ export class PerfilComponent implements OnInit {
       kmTrocaOleo: ['', [Validators.required, Validators.min(0), Validators.max(9999999)]]
     });
   }
-  onSubmit() {
+  AdicionarVeiculo() {
     if (this.veiculoForm.valid) {
+      this.veiculoService.AdicionarVeiculo(this.veiculoForm.value).subscribe({
+        next: (res) => {
+          console.log("Criado com sucesso", res);
+          alert('Veículo cadastrado com sucesso!');
+        },
+        error: (error) => {
+          console.log("falha ao criar!", error);
+  
+          if (error.status === 400 && error.error) {
+            alert(`Erro: ${error.error}`);
+          } else if (error.status === 500) {
+            alert("Erro interno no servidor. Tente novamente mais tarde.");
+          } else {
+            alert("Erro desconhecido ao cadastrar o veículo.");
+          }
+        }
+      });
+  
       console.log('Dados do veículo:', this.veiculoForm.value);
-      alert('Veículo cadastrado com sucesso!');
     } else {
       alert('Preencha todos os campos corretamente.');
     }

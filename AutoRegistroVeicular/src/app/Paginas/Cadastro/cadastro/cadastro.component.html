@@ -26,8 +26,8 @@
       </div>
   
       <label for="senha">Senha:</label>
-      <input id="senha" formControlName="senha" type="password" required />
-      <div *ngIf="usuarioForm.get('senha')?.invalid && usuarioForm.get('senha')?.touched">
+      <input id="senha" formControlName="PasswordHash" type="password" required />
+      <div *ngIf="usuarioForm.get('PasswordHash')?.invalid && usuarioForm.get('PasswordHash')?.touched">
         <small>A senha deve ter pelo menos 6 caracteres.</small>
       </div>
   
@@ -37,13 +37,13 @@
         <small>As senhas não coincidem.</small>
       </div>
   
-      <label for="foto">Foto (Imagem):</label>
+      <!-- <label for="foto">Foto (Imagem):</label>
       <input id="foto" type="file" (change)="onFileChange($event)" required />
       <div *ngIf="!selectedFile && usuarioForm.get('foto')?.touched">
         <small>Por favor, selecione uma foto.</small>
-      </div>
-  
-      <button type="submit" [disabled]="usuarioForm.invalid || !selectedFile">Enviar</button>
+      </div> -->
+      <!-- || !selectedFile -->
+      <button type="submit" [disabled]="usuarioForm.invalid">Enviar</button>
     </form>
   </div>
 </div>

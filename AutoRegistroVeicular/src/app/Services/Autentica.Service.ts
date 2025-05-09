@@ -27,9 +27,11 @@ constructor() {
    //sessionStorage.setItem('token',token);
  }
  public ObterToken(){
-   const tokenString = sessionStorage.getItem('token');
-   return tokenString ? JSON.parse(tokenString) : null; 
-   //return sessionStorage.getItem('token');
+  if (typeof window !== 'undefined' && window.sessionStorage) {
+    const tokenString = sessionStorage.getItem('token');
+    return tokenString ? JSON.parse(tokenString) : null;
+  }
+  return null;
  }
  public LimparToken(){
     sessionStorage.removeItem('token');

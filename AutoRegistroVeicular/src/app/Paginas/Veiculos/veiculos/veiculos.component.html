@@ -1,61 +1,96 @@
 <div class="container">
-    <h2>Manutenções do - {{ veiculo.Placa }}</h2>
-  
-    <div class="manutencao-lista">
-      <div 
-        class="manutencao-card" 
-        *ngFor="let manutencao of manutencoes" 
-        (click)="abrirDetalhesVeiculo(veiculo.Id)">
-        <h3>Placa: {{ veiculo.Placa }}</h3>
-        <p>Quilometragem Atual: {{ veiculo.KmAtual }}</p>
-        <p>Modelo: {{ veiculo.Modelo }}</p>
-      </div>
+  <h2 *ngIf="veiculo">Manutenções do - {{ veiculo.placa }}</h2>
+
+  <!-- Lista de Manutenções -->
+  <div class="manutencao-lista">
+    <div 
+      class="manutencao-card" 
+      *ngFor="let manutencao of manutencoes" 
+      (click)="abrirDetalhesManutencao(manutencao.id)">
+      <h3>Tipo de Manutenção: {{ manutencao.nomePeca }}</h3>
+      <p>Fabricante: {{ manutencao.fabricante }}</p>
+      <p>Preço: R$:{{ manutencao.preco.toLocaleString('pt-BR') }}</p>
+      <p>Data da Compra: {{ manutencao.dataDaCompra.substring(0, 10)}}</p>
     </div>
   </div>
+</div>
 
-  <div class="container mt-4">
-    <h2>Alteração de Dados do Veículo - {{ veiculo.Placa }}</h2>
-  
-    <form [formGroup]="veiculoForm" (ngSubmit)="onSubmit()">
-      
-      <!-- Placa -->
-      <div class="mb-3">
-        <label for="placa" class="form-label">Placa</label>
-        <input type="text" id="placa" class="form-control" formControlName="placa">
-        <div *ngIf="veiculoForm.controls['placa'].invalid && veiculoForm.controls['placa'].touched" class="text-danger">
-          A placa deve ter entre 7 e 10 caracteres.
-        </div>
-      </div>
-  
-      <!-- Modelo -->
-      <div class="mb-3">
-        <label for="modelo" class="form-label">Modelo</label>
-        <input type="text" id="modelo" class="form-control" formControlName="modelo">
-        <div *ngIf="veiculoForm.controls['modelo'].invalid && veiculoForm.controls['modelo'].touched" class="text-danger">
-          O modelo é obrigatório.
-        </div>
-      </div>
-  
-      <!-- Km Atual -->
-      <div class="mb-3">
-        <label for="kmAtual" class="form-label">KM Atual</label>
-        <input type="number" id="kmAtual" class="form-control" min="0" max="9999999" formControlName="kmAtual">
-        <div *ngIf="veiculoForm.controls['kmAtual'].invalid && veiculoForm.controls['kmAtual'].touched" class="text-danger">
-          Insira um valor entre 0 e 9999999.
-        </div>
-      </div>
-      <div class="mb-3">
-        <label for="kmTrocaOleo" class="form-label">KM Troca de Óleo</label>
-        <input type="number" id="kmTrocaOleo" class="form-control" formControlName="kmTrocaOleo">
-        <div *ngIf="veiculoForm.controls['kmTrocaOleo'].invalid && veiculoForm.controls['kmTrocaOleo'].touched" class="text-danger">
-          Insira um valor entre 1 e 9999999.
-        </div>
-      </div>
-  
-      <!-- Botão de Envio -->
-      <button type="submit" class="btn btn-primary" [disabled]="veiculoForm.invalid">Alterar</button>
-    </form>
+  <!-- Botões para alternar -->
+  <div class="btn-group mb-3">
+    <button class="btn btn-outline-primary" (click)="mostrarFormularioVeiculo = true; mostrarFormularioManutencao = false">
+      Editar Veículo
+    </button>
+    <button class="btn btn-outline-success" (click)="mostrarFormularioVeiculo = false; mostrarFormularioManutencao = true">
+      Nova Manutenção
+    </button>
   </div>
-  
 
- 
+<!-- Formulário de Edição do Veículo -->
+<div class="container mt-4" *ngIf="mostrarFormularioVeiculo && veiculoForm">
+  <h2 *ngIf="veiculo">Alteração de Dados do Veículo - {{ veiculo.placa }}</h2>
+
+  <form [formGroup]="veiculoForm" (ngSubmit)="onSubmit()">
+    <!-- Placa -->
+    <div class="mb-3">
+      <label for="placa" class="form-label">Placa</label>
+      <input type="text" id="placa" class="form-control" formControlName="placa">
+      <div *ngIf="veiculoForm.controls['placa'].invalid && veiculoForm.controls['placa'].touched" class="text-danger">
+        A placa deve ter entre 7 e 10 caracteres.
+      </div>
+    </div>
+
+    <!-- Km Atual -->
+    <div class="mb-3">
+      <label for="kmAtual" class="form-label">KM Atual</label>
+      <input type="number" id="kmAtual" class="form-control" min="0" max="9999999" formControlName="kmAtual">
+      <div *ngIf="veiculoForm.controls['kmAtual'].invalid && veiculoForm.controls['kmAtual'].touched" class="text-danger">
+        Insira um valor entre 0 e 9999999.
+      </div>
+    </div>
+
+    <!-- Km Troca Óleo -->
+    <div class="mb-3">
+      <label for="kmTrocaOleo" class="form-label">KM Troca de Óleo</label>
+      <input type="number" id="kmTrocaOleo" class="form-control" formControlName="kmTrocaOleo">
+      <div *ngIf="veiculoForm.controls['kmTrocaOleo'].invalid && veiculoForm.controls['kmTrocaOleo'].touched" class="text-danger">
+        Insira um valor entre 1 e 9999999.
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="veiculoForm.invalid">Alterar</button>
+  </form>
+</div>
+
+<!-- Formulário de Cadastro de Manutenção -->
+<div class="container mt-4" *ngIf="mostrarFormularioManutencao && manutencaoForm">
+  <h2>Cadastro de Nova Manutenção</h2>
+
+  <form [formGroup]="manutencaoForm" (ngSubmit)="cadastrarManutencao()">
+    <div class="mb-3">
+      <label for="nomePeca" class="form-label">Nome da Peça</label>
+      <input type="text" id="nomePeca" class="form-control" formControlName="nomePeca">
+    </div>
+
+    <div class="mb-3">
+      <label for="preco" class="form-label">Preço</label>
+      <input type="number" id="preco" class="form-control" formControlName="preco" step="0.01">
+    </div>
+
+    <div class="mb-3">
+      <label for="dataCompra" class="form-label">Data da Compra</label>
+      <input type="date" id="dataCompra" class="form-control" formControlName="dataDaCompra">
+    </div>
+
+    <div class="mb-3">
+      <label for="dataInstalacao" class="form-label">Data da Instalação</label>
+      <input type="date" id="dataInstalacao" class="form-control" formControlName="dataDaInstalacao">
+    </div>
+
+    <div class="mb-3">
+      <label for="fabricante" class="form-label">Fabricante</label>
+      <input type="text" id="fabricante" class="form-control" formControlName="fabricante">
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="manutencaoForm.invalid">Salvar Manutenção</button>
+  </form>
+</div>

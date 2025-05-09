@@ -5,7 +5,7 @@
     <div class="sandwich-menu" (click)="toggleMenu()">
         &#9776;
     </div>
-    <div class="grupo-usuario-sair" [class.active]="isMenuOpen">
+    <div class="grupo-usuario-sair" [ngClass]="{'active': isMenuOpen}">
         <div class="btn-navBar" (click)="home()">
             Home
         </div>
@@ -18,7 +18,7 @@
         <div class="btn-navBar" *ngIf="estaAutenticado()"(click)="perfil()">
             Perfil
         </div>
-        <div class="btn-navBar" *ngIf="estaAutenticado()">
+        <div class="btn-navBar" *ngIf="estaAutenticado()" (click)="sair()">
             Logout
         </div>
         

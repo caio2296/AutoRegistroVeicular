@@ -18,9 +18,6 @@ export class NavbarComponent  implements OnInit {
   }
   ngOnInit(): void {
   }
-  @HostBinding('class.active') get activeClass() {
-    return this.isMenuOpen;
-  }
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
@@ -37,6 +34,7 @@ export class NavbarComponent  implements OnInit {
 
   }
   perfil(){
+    console.log(this.isMenuOpen);
     this.router.navigate(["/Perfil"]);
 
   }
