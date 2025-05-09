@@ -1,8 +1,8 @@
 export class VeiculoViewModel{
-     Id!:string;
-     Modelo!:string;
-     Placa!:string;
+     id!:string;
+     modelo!:string;
+     placa!:string;
      int!:number;
-     KmAtual!:number;
-     KmTrocaOleo!:number;
+     kmAtual!:number;
+     kmTrocaOleo!:number;
 }

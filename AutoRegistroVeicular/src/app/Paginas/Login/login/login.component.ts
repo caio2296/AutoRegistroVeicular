@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { LoginService } from '../../../Services/Login.service';
+import { Login } from '../../../Models/LoginModel';
+import { AutenticaService } from '../../../Services/Autentica.Service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -13,7 +16,9 @@ import { LoginService } from '../../../Services/Login.service';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private loginService:LoginService,
+    private autenticaService:AutenticaService, private router:Router
+  ) {
   }
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -24,7 +29,19 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log('Login realizado com:', this.loginForm.value);
+      var dadosLogin = this.loginForm.getRawValue() as Login;
+
+      this.loginService.LoginUsuario(dadosLogin)
+      .subscribe({
+        next:(token)=>{
+        this.autenticaService.DefineToken(token);
+        this.router.navigate(["/perfil"]);
+        
+      },
+      error:erro=>{
+        alert("Erro no servidor!");
+        this.router.navigate(["/"]);
+      }});
       // Aqui você pode redirecionar ou chamar um serviço de autenticação
     }
   }

@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule,FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';  // Importar corretamente o HttpClient
 import { HttpClientModule } from '@angular/common/http';
+import { UsuarioService } from '../../../Services/Usuario.Service';
+import { UsuarioViewModel } from '../../../Models/UsuarioViewModel';
 
 
 @Component({
@@ -16,7 +18,8 @@ export class CadastroComponent implements OnInit {
   usuarioForm!: FormGroup;
   selectedFile: File | null = null;
 
-  constructor(private fb: FormBuilder, private http: HttpClient) {
+  constructor(private fb: FormBuilder, private http: HttpClient,
+     private usuarioService:UsuarioService) {
   
   }
   ngOnInit(): void {
@@ -24,14 +27,14 @@ export class CadastroComponent implements OnInit {
       nomeEmpresa: ['', Validators.required],
       celular: ['', [ Validators.required, Validators.pattern(/^\(?\d{2}\)?\s?\d{5}-?\d{4}$/)]],
       email: ['', [Validators.required, Validators.email]],
-      senha: ['', [Validators.required, Validators.minLength(6)]],
+      PasswordHash: ['', [Validators.required, Validators.minLength(6)]],
       confirmarSenha: ['', Validators.required]
     }, { validators: this.senhasCoincidem });
   }
 
   // Validação personalizada para senha e confirmação de senha
   senhasCoincidem(group: FormGroup) {
-    const senha = group.get('senha')?.value;
+    const senha = group.get('PasswordHash')?.value;
     const confirmarSenha = group.get('confirmarSenha')?.value;
     return senha === confirmarSenha ? null : { senhasNaoCoincidem: true };
   }
@@ -77,7 +80,8 @@ export class CadastroComponent implements OnInit {
   
 
   onSubmit() {
-    if (this.usuarioForm.valid && this.selectedFile) {
+    // && this.selectedFile
+    if (this.usuarioForm.valid) {
       const formData = new FormData();
       
       // Adicionar dados do formulário
@@ -86,14 +90,16 @@ export class CadastroComponent implements OnInit {
       formData.append('email', this.usuarioForm.get('email')?.value);
       formData.append('senha', this.usuarioForm.get('senha')?.value);
       formData.append('confirmarSenha', this.usuarioForm.get('confirmarSenha')?.value);
-
+console.log(this.usuarioForm.value);
       // Adicionar o arquivo de foto
-      formData.append('foto', this.selectedFile, this.selectedFile.name);
+      // formData.append('foto', this.selectedFile, this.selectedFile.name);
+      var dadosNovoUsuario= this.usuarioForm.getRawValue() as UsuarioViewModel;
 
+     
+     
       // Enviar para o backend
-      this.http.post('API_URL_AQUI', formData).subscribe(
+      this.usuarioService.RegistrarUsuario(this.usuarioForm.value).subscribe(
         (response) => {
-          
           console.log('Usuário criado com sucesso!', response);
         },
         (error) => {
@@ -113,7 +119,7 @@ export class CadastroComponent implements OnInit {
           console.error('Erro ao criar usuário', error);
         }
       );
-    } else {
+    }else {
       console.log('Formulário inválido');
       console.log(this.usuarioForm);
       console.log(this.selectedFile)

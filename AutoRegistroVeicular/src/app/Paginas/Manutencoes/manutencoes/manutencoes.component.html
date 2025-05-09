@@ -1,97 +1,97 @@
 <div class="container mt-4">
    
     
-    <form [formGroup]="manutencaoForm" (ngSubmit)="onSubmit()">
-      <h2>Cadastro de uma nova Manutenção</h2>
-      <!-- Modelo -->
-      <div class="mb-3">
-        <label for="modelo" class="form-label">Modelo</label>
-        <input type="text" id="modelo" class="form-control" formControlName="modelo">
-        <div *ngIf="manutencaoForm.controls['modelo'].invalid && manutencaoForm.controls['modelo'].touched" class="text-danger">
-          O modelo é obrigatório.
-        </div>
-      </div>
-  
-      <!-- Placa -->
-      <div class="mb-3">
-        <label for="placa" class="form-label">Placa</label>
-        <input type="text" id="placa" class="form-control" formControlName="placa">
-        <div *ngIf="manutencaoForm.controls['placa'].invalid && manutencaoForm.controls['placa'].touched" class="text-danger">
-          A placa deve ter entre 7 e 10 caracteres.
-        </div>
-      </div>
-  
-      <!-- Km Atual -->
-      <div class="mb-3">
-        <label for="kmAtual" class="form-label" >KM Atual</label>
-        <input type="number" id="kmAtual" class="form-control" min="1" formControlName="kmAtual">
-        <div *ngIf="manutencaoForm.controls['kmAtual'].invalid && manutencaoForm.controls['kmAtual'].touched" class="text-danger">
-          Insira um valor entre 0 e 9999999.
-        </div>
-      </div>
-  
-      <!-- KM Troca de Óleo -->
-      <div class="mb-3">
-        <label for="kmTrocaOleo" class="form-label">KM Troca de Óleo</label>
-        <input type="number" id="kmTrocaOleo" class="form-control" min="1" formControlName="kmTrocaOleo">
-        <div *ngIf="manutencaoForm.controls['kmTrocaOleo'].invalid && manutencaoForm.controls['kmTrocaOleo'].touched" class="text-danger">
-          Insira um valor entre 0 e 9999999.
-        </div>
-      </div>
-  
-      <!-- Botão de Envio -->
-      <button type="submit" class="btn btn-primary" [disabled]="manutencaoForm.invalid">Cadastrar</button>
-    </form>
+   <div class="container mt-4" *ngIf="mostrarFormularioManutencao && manutencaoForm">
+  <h2>Cadastro de Nova Manutenção</h2>
+
+  <form [formGroup]="manutencaoForm" (ngSubmit)="cadastrarManutencao()">
+    <div class="mb-3">
+      <label for="nomePeca" class="form-label">Nome da Peça</label>
+      <input type="text" id="nomePeca" class="form-control" formControlName="nomePeca">
+    </div>
+
+    <div class="mb-3">
+      <label for="preco" class="form-label">Preço</label>
+      <input type="number" id="preco" class="form-control" formControlName="preco">
+    </div>
+
+    <div class="mb-3">
+      <label for="dataCompra" class="form-label">Data da Compra</label>
+      <input type="date" id="dataCompra" class="form-control" formControlName="dataDaCompra">
+    </div>
+
+    <div class="mb-3">
+      <label for="dataInstalacao" class="form-label">Data da Instalação</label>
+      <input type="date" id="dataInstalacao" class="form-control" formControlName="dataDaInstalacao">
+    </div>
+
+    <div class="mb-3">
+      <label for="fabricante" class="form-label">Fabricante</label>
+      <input type="text" id="fabricante" class="form-control" formControlName="fabricante">
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="manutencaoForm.invalid">Salvar Manutenção</button>
+  </form>
+</div>
   </div>
 
 
    <!-- Alteração -->
-  <div class="container mt-4">
+  <div class="container mt-4" *ngIf="alteracaoForm">
     <form [formGroup]="alteracaoForm" (ngSubmit)="onUpdate()">
       <h2>Alteração de Manutenção</h2>
   
       <!-- ID da Manutenção (Oculto, mas útil para envio) -->
       <input type="hidden" formControlName="id">
   
-      <!-- Modelo -->
+      <!-- Nome da Peça -->
       <div class="mb-3">
-        <label for="modelo" class="form-label">Modelo</label>
-        <input type="text" id="modelo" class="form-control" formControlName="modelo">
-        <div *ngIf="alteracaoForm.controls['modelo'].invalid && alteracaoForm.controls['modelo'].touched" class="text-danger">
-          O modelo é obrigatório.
+        <label for="Nome da Peça" class="form-label">Tipo de Manutenção</label>
+        <input type="text" id="nomePeca" class="form-control" formControlName="nomePeca">
+        <div *ngIf="alteracaoForm.controls['nomePeca'].invalid && alteracaoForm.controls['nomePeca'].touched" class="text-danger">
+          O nome da preça é obrigatório.
         </div>
       </div>
   
-      <!-- Placa -->
+      <!-- Preço -->
       <div class="mb-3">
-        <label for="placa" class="form-label">Placa</label>
-        <input type="text" id="placa" class="form-control" formControlName="placa">
-        <div *ngIf="alteracaoForm.controls['placa'].invalid && alteracaoForm.controls['placa'].touched" class="text-danger">
-          A placa deve ter entre 7 e 10 caracteres.
+        <label for="preco" class="form-label">Preço</label>
+        <input type="number" id="preco" class="form-control" formControlName="preco" step="0.01"  (input)="onPrecoChange($event)">
+        <div *ngIf="alteracaoForm.controls['preco'].invalid && alteracaoForm.controls['preco'].touched" class="text-danger">
+          O preço tem que ser maior do que 0.01
         </div>
       </div>
   
-      <!-- Km Atual -->
+      <!-- Data da compra -->
       <div class="mb-3">
-        <label for="kmAtual" class="form-label">KM Atual</label>
-        <input type="number" id="kmAtual" class="form-control" min="1" formControlName="kmAtual">
-        <div *ngIf="alteracaoForm.controls['kmAtual'].invalid && alteracaoForm.controls['kmAtual'].touched" class="text-danger">
-          Insira um valor entre 0 e 9999999.
+        <label for="Data da Compra" class="form-label">Data da Compra</label>
+        <input type="date" id="dataDaCompra" class="form-control" min="1" formControlName="dataDaCompra">
+        <div *ngIf="alteracaoForm.controls['dataDaCompra'].invalid && alteracaoForm.controls['dataDaCompra'].touched" class="text-danger">
+          Insira uma data válida!
         </div>
       </div>
   
-      <!-- KM Troca de Óleo -->
+         <!-- Data da instalação -->
+         <div class="mb-3">
+          <label for="Data da instalação" class="form-label">Data da instalação</label>
+          <input type="date" id="dataDaInstalacao" class="form-control" min="1" formControlName="dataDaInstalacao">
+          <div *ngIf="alteracaoForm.controls['dataDaInstalacao'].invalid && alteracaoForm.controls['dataDaInstalacao'].touched" class="text-danger">
+            Insira uma data válida!
+          </div>
+        </div>
+
+      <!-- Fabricante -->
       <div class="mb-3">
-        <label for="kmTrocaOleo" class="form-label">KM Troca de Óleo</label>
-        <input type="number" id="kmTrocaOleo" class="form-control" min="1" formControlName="kmTrocaOleo">
-        <div *ngIf="alteracaoForm.controls['kmTrocaOleo'].invalid && alteracaoForm.controls['kmTrocaOleo'].touched" class="text-danger">
-          Insira um valor entre 0 e 9999999.
+        <label for="Fabricante" class="form-label">Fabricante</label>
+        <input type="text" id="fabricante" class="form-control" min="1" formControlName="fabricante">
+        <div *ngIf="alteracaoForm.controls['fabricante'].invalid && alteracaoForm.controls['fabricante'].touched" class="text-danger">
+          Insira o nome do fabricante.
         </div>
       </div>
   
       <!-- Botões de Ação -->
       <div class="d-flex justify-content-between">
-        <button type="submit" class="btn btn-success" [disabled]="manutencaoForm.invalid">Salvar Alterações</button>
+        <button type="submit" class="btn btn-success" [disabled]="alteracaoForm.invalid">Salvar Alterações</button>
         <button type="button" class="btn btn-danger" (click)="onDelete()">Excluir</button>
       </div>
     </form>

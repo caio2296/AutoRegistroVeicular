@@ -1,6 +1,8 @@
 export class UsuarioViewModel{
-    NomeEmpresa!: string;
-    Email!: string;
-    UrlFoto!: string;
-    Celular!: string;
+    userName!:string;
+    nomeEmpresa!: string;
+    email!: string;
+    urlFoto!: string;
+    celular!: string;
+    senha!: string;
 }

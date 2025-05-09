@@ -1,14 +1,15 @@
 <div class="container">
-    <h2>Lista dos seus carros - {{ usuario.NomeEmpresa }}</h2>
+    <h2 *ngIf="usuario">Lista dos seus carros - {{ usuario.nomeEmpresa }}</h2>
   
     <div class="veiculo-lista">
       <div 
         class="veiculo-card" 
         *ngFor="let veiculo of veiculos" 
-        (click)="abrirDetalhesVeiculo(veiculo.Id)">
-        <h3>Placa: {{ veiculo.Placa }}</h3>
-        <p>Quilometragem Atual: {{ veiculo.KmAtual }}</p>
-        <p>Modelo: {{ veiculo.Modelo }}</p>
+        (click)="abrirDetalhesVeiculo(veiculo.id)">
+        <h3>Placa: {{ veiculo.placa }}</h3>
+        <p>Quilometragem Atual: {{ veiculo.kmAtual }}</p>
+        <p>Proxima troca(km): {{ veiculo.kmTrocaOleo }}</p>
+        <p>Modelo: {{ veiculo.modelo }}</p>
       </div>
     </div>
   </div>
@@ -16,7 +17,7 @@
   <div class="container mt-4">
    
     
-    <form [formGroup]="veiculoForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="veiculoForm" (ngSubmit)="AdicionarVeiculo()">
       <h2>Cadastro de Veículo</h2>
       <!-- Modelo -->
       <div class="mb-3">

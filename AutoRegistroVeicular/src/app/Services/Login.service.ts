@@ -28,6 +28,7 @@ export class LoginService{
 
     LoginUsuario(object: any){
        return this.httpClient.post<any>
-        (`${this.baseUrl}CriarToken/`,object)
+        (`${this.baseUrl}CriarToken`,object);
     }
+
 }
